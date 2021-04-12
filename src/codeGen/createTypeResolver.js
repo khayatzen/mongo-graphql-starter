@@ -53,6 +53,7 @@ export default function createGraphqlResolver(objectToCreate, options) {
     `const { getMongoProjection, parseRequestedFields } = projectUtilities;`,
     `const { getUpdateObject, setUpOneToManyRelationshipsForUpdate } = updateUtilities;`,
     `import { ObjectId } from "mongodb";`,
+    `import { canCreate, canRead, canDetail, canUpdate, canDelete } from "../../auth/accessControl";`,
     `import ${objName}Metadata from "./${objName}";`,
     ...resolverSources.map(
       (src, i) =>

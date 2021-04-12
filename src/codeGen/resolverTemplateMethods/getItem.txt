@@ -2,6 +2,9 @@
       let db = await (typeof root.db === "function" ? root.db() : root.db);
       await runHook("queryPreprocess", { db, root, args, context, ast });
       context.__mongodb = db;
+
+      if(await canDetail(${objName}, context) == false) return null;
+      
       let queryPacket = decontructGraphqlQuery(args, ast, ${objName}Metadata, "${objName}");
       let { aggregationPipeline } = queryPacket;
       await runHook("queryMiddleware", queryPacket, { db, root, args, context, ast });

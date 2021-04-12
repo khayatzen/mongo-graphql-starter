@@ -2,6 +2,10 @@ import { mutationStart, mutationError, mutationOver, mutationMeta, mutationCompl
 
 export default ({ objName, table }) => `    async update${objName}s(root, args, context, ast) {
       ${mutationStart({ objName, op: "update" })}
+
+      context.__mongodb = db;
+      if(await canUpdate(${objName}, context) == false) throw 'You are not authorized to update ${objName}'; 
+      
       return await resolverHelpers.runMutation(session, transaction, async() => {
         let { $match, $project } = decontructGraphqlQuery({ _id_in: args._ids }, ast, ${objName}Metadata, "${objName}s");
         let updates = await getUpdateObject(args.Updates || {}, ${objName}Metadata, { ...gqlPacket, db, session });

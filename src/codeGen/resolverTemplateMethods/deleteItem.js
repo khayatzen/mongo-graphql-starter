@@ -3,8 +3,13 @@ import { mutationStart, mutationError, mutationOver, mutationMeta, mutationCompl
 export default ({ objName, table, relationshipCleanup }) => `    async delete${objName}(root, args, context, ast) {
       if (!args._id) {
         throw "No _id sent";
-      }
+      }     
+
       ${mutationStart({ objName, op: "delete" })}
+      
+      context.__mongodb = db;
+      if(await canDelete(${objName}, context) == false) throw 'You are not authorized to delete ${objName}'; 
+
       try {
         let $match = { _id: ObjectId(args._id) };
         

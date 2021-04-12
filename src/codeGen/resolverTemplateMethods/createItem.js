@@ -1,8 +1,12 @@
 import { mutationStart, mutationComplete, mutationError, mutationOver, mutationMeta } from "../mutationHelpers";
 
 export default ({ objName }) =>
-  `    async create${objName}(root, args, context, ast) {
+  `    async create${objName}(root, args, context, ast) {      
       ${mutationStart({ objName, op: "create" })}
+
+      context.__mongodb = db;
+      if(await canCreate(${objName}, context) == false) throw 'You are not authorized to create ${objName}'; 
+      
       return await resolverHelpers.runMutation(session, transaction, async() => {
         let newObject = await newObjectFromArgs(args.${objName}, ${objName}Metadata, { ...gqlPacket, db, session });
         let requestMap = parseRequestedFields(ast, "${objName}");
