@@ -3,7 +3,7 @@
       await runHook("queryPreprocess", { db, root, args, context, ast });
       context.__mongodb = db;
       
-      if(await canRead(${objName}, context) == false) return null;
+      if(await canRead("${objName}", context) == false) return {${objName}s: []};
 
       let queryPacket = decontructGraphqlQuery(args, ast, ${objName}Metadata, "${objName}s");
       let { aggregationPipeline } = queryPacket;
