@@ -12,7 +12,7 @@ import {
 } from "../dataTypes";
 import { TAB } from "./utilities";
 
-const defaultDateFormat = "%m/%d/%Y";
+const defaultDateFormat = "%Y-%m-%dT%H:%M:%S.%LZ";
 
 export default function createOutputTypeMetadata(objectToCreate) {
   let fields = objectToCreate.fields;
