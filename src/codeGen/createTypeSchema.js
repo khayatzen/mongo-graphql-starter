@@ -14,6 +14,7 @@ export default function createGraphqlTypeSchema(objectToCreate) {
 
   let imports = schemaSources.map((src, i) => `import SchemaExtras${i + 1} from "${src}";`);
 
+  let extraTypes = schemaSources.map((src, i) => "\n\n" + TAB + "${SchemaExtras" + (i + 1) + '.Type || ""}').join("");  
   let extraMutations = schemaSources.map((src, i) => "\n\n" + TAB + "${SchemaExtras" + (i + 1) + '.Mutation || ""}').join("");
   let extraQueries = schemaSources.map((src, i) => "\n\n" + TAB + "${SchemaExtras" + (i + 1) + '.Query || ""}').join("");
 
@@ -23,7 +24,7 @@ export default function createGraphqlTypeSchema(objectToCreate) {
   return `${imports.length ? imports.join("\n") + "\n\n" : ""}export const type = \`
   
 ${createSchemaTypes()}
-  
+${extraTypes}
 \`;
   
   ${objectToCreate.table ? `${mutation()}\n\n${query()}` : ""}
