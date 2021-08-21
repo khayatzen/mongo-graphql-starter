@@ -36,7 +36,8 @@
     "graphql": "^14.5.8",
     "graphql-request": "^1.8.2",
     "jest": "^27.0.1",
-    "mongodb": "^3.1.13"
+    "mongodb": "^3.1.13",
+    "prettier": "^2.3.2"
   },
   "scripts": {
     "test-local": "jest --runInBand --config=test/jestConfig/jest.configRoot.json",
@@ -65,11 +66,10 @@
     "graphql-tools": "^6.0.11",
     "graphql-type-json": "0.2.1",
     "lodash.flatmap": "4.5.0",
-    "mkdirp": "0.5.1",
-    "prettier": "latest"
+    "mkdirp": "0.5.1"
   },
   "peerDependencies": {
-    "mongodb": ">= 2.2.31",
-    "graphql": ">= 0.13.2"
+    "graphql": ">= 0.13.2",
+    "mongodb": ">= 2.2.31"
   }
 }
