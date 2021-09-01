@@ -8,7 +8,7 @@ export default ({ objName, table, relationshipCleanup }) => `    async delete${o
       ${mutationStart({ objName, op: "delete" })}
       
       context.__mongodb = db;
-      if(await canDelete("${objName}", context) == false) throw new ForbiddenError('You are not authorized to delete ${objName}'); 
+      if(await canDelete("${objName}", context, args) == false) throw new ForbiddenError('You are not authorized to delete ${objName}'); 
 
       try {
         let $match = { _id: ObjectId(args._id) };

@@ -4,7 +4,7 @@ export default ({ objName, table }) => `    async update${objName}sBulk(root, ar
       ${mutationStart({ objName, op: "update" })}
 
       context.__mongodb = db;
-      if(await canUpdate("${objName}", context) == false) throw new ForbiddenError('You are not authorized to update ${objName}'); 
+      if(await canUpdate("${objName}", context, args) == false) throw new ForbiddenError('You are not authorized to update ${objName}'); 
       
       return await resolverHelpers.runMutation(session, transaction, async() => {
         let { $match } = decontructGraphqlQuery(args.Match, ast, ${objName}Metadata);

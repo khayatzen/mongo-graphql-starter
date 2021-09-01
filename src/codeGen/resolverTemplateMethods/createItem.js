@@ -5,7 +5,7 @@ export default ({ objName }) =>
       ${mutationStart({ objName, op: "create" })}
 
       context.__mongodb = db;
-      if(await canCreate("${objName}", context) == false) throw new ForbiddenError ('You are not authorized to create ${objName}'); 
+      if(await canCreate("${objName}", context, args) == false) throw new ForbiddenError ('You are not authorized to create ${objName}'); 
       
       return await resolverHelpers.runMutation(session, transaction, async() => {
         let newObject = await newObjectFromArgs(args.${objName}, ${objName}Metadata, { ...gqlPacket, db, session });
